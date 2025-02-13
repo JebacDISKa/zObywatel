@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obywatel Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fdfdfd;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            max-height: 400px;
+            background-image: url('https://scontent.xx.fbcdn.net/v/t1.15752-9/474500162_1778120116301253_9074663169794739102_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=103&ccb=1-7&_nc_sid=0024fc&_nc_ohc=jFne0fEv84IQ7kNvgGzxJkm&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1gEgLnnRoZh64bxaACaIM3AS6sFDpzQnOfjADpBMVtBoeA&oe=67BE2049');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10%;
+            margin-bottom: 20px;
+            margin-top: 220px;
+        }
+
+        h1 {
+            font-size: 33px;
+            color: #000000;
+            margin-bottom: 20px;
+            font-weight: 630;
+        }
+
+        button {
+            width: 340px;
+            height: 46px;
+            padding: 15px;
+            font-size: 16px;
+            color: white;
+            background-color: #0e4683;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            margin-top: 36px;
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .main-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .main-menu a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 20px;
+            margin: 10px 0;
+            border: 1px solid #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .main-menu a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="start-screen">
+        <div class="logo"></div>
+        <h1>mObywatel 2.0</h1>
+        <button onclick="window.location.href='zaloguj.html'">Zaloguj się</button>
+        <img src="https://powderblue-cat-511351.hostingersite.com/dowod_files/coi.png" alt="Placeholder Image">
+    </div>
+
+    <div class="container hidden" id="main-screen">
+        <h1>Wybierz kategorię</h1>
+        <div class="main-menu">
+            <a href="#" onclick="alert('Dowód funkcja w budowie')">Dowód</a>
+            <a href="#" onclick="alert('Prawo jazdy funkcja w budowie')">Prawo jazdy</a>
+        </div>
+    </div>
+
+    <script>
+        function goToMainScreen() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+    <script src="zaloguj.html"></script>
+
+</html>

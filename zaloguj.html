@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pl">
+    https://moj234342111@@strona.com?user=Jan
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaloguj - Strona</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;  
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f5fa;
+        }
+
+        /* Pasek na górze */
+        .top-bar {
+            width: 100%;
+            height: 100px;
+            background-color: #f0f5fa;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Kółko z literami */
+        .circle {
+            position: absolute;
+            top: 25px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #014993;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 200;
+            cursor: pointer;
+        }
+
+        /* Obrazek dzwonka */
+        .bell-img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        /* Sekcja z napisem */
+        .content {
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .content h1 {
+            font-size: 20px;
+            font-weight: 400;
+            color: #000000;
+            padding-left: 7px;
+        }
+
+        /* Styl przycisków */
+        .buttons {
+            display: flex;
+            gap: 5px;
+            margin-right: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #014993;
+            background-color: #daeaf9;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            text-transform: none;
+        }
+
+        .button span {
+            font-size: 16px;
+        }
+
+        /* Nowe przyciski poniżej */
+        .extra-buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            padding-left: 30px;
+        }
+
+        .large-button {
+            width: 300px;
+            height: 180px;
+            padding: 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #014993;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .button-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px !important;  /* Wymuszenie dokładnego rozmiaru */
+            height: 30px !important;
+            max-width: 30px;
+            max-height: 30px;
+            object-fit: contain;
+            display: block;  /* Zapewnia poprawne wyświetlanie */
+        }
+
+
+
+        .large-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .large-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Pasek pod napisem */
+        .label-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .label-text {
+            font-size: 18px;
+            font-weight: 530;
+            color: #000000;
+            text-align: left;
+            padding-left: 5px; /* Odstęp od lewej krawędzi */
+        }
+
+        .arrow {
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Pasek nawigacyjny */
+        .nav-bar {
+            width: 100%;
+            background-color: #f0f5fa;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        .nav-bar img {
+        width: 40px;  /* Zmniejszenie szerokości */
+        height: 40px; /* Zmniejszenie wysokości */
+        object-fit: contain;
+        background-color: transparent; /* Usunięcie tła */
+
+        }
+
+
+        .nav-bar a {
+            height: 60px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            color: #014993;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 25px;
+            /* text-transform: none; */
+            display: inline-block;
+        }
+
+
+
+      
+
+        /* Styl dla napisu "Usługi" pod przyciskiem mDowód */
+        .services-text {
+            font-size: 20px;
+            font-weight: 400;
+            color: #000000;
+            padding-left: 17px;
+            padding-top: 50px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pasek na górze -->
+    <div class="top-bar">
+        <!-- Kółko z literami -->
+        <div class="circle" contenteditable="true">SC</div>
+
+        <!-- Wstawienie zdjęcia dzwonka -->
+        <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/474667815_2142904462809899_3534658025567997709_n.png" 
+        alt="Dzwonek" class="bell-img">
+    </div>
+
+    <!-- Sekcja z napisem i przyciskami -->
+    <div class="content">
+        <h1>Dokumenty</h1>
+        <div class="buttons">
+            <button class="button"><span>Dodaj</span></button>
+            <button class="button"><span>Wszystkie</span></button>
+        </div>
+    </div>
+
+    <div class="extra-buttons">
+        <a href="m_dowod.html">
+            <button class="large-button">
+                <img src="file:///C:/Users/szefi/OneDrive/Pulpit/mDowod/mDowod.png" alt="Opcja 1">
+                <img class="button-icon" src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 035309.jpg" alt="Ikona">
+                <div class="label-container">
+                    <span class="label-text">mDowód</span>
+                    <span class="arrow">➜</span>
+                </div>
+            </button>
+        </a>
+        
+        <button class="large-button">
+            <img src="file:///C:/Users/szefi/OneDrive/Pulpit/mDowod/prawo%20jazdy.png" alt="Opcja 2">
+            <img class="button-icon" src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 034852-Photoroom.png" alt="Ikona">
+            <div class="label-container">
+                <span class="label-text">Prawo jazdy</span>
+                <span class="arrow">➜</span>
+            </div>
+        </button>
+    </div>
+    
+    <div class="services-header">
+        <h2 class="services-text">Usługi</h2>
+        
+    
+        
+        <button class="button service-button"><span>Wszystkie</span></button>
+    </div>
+    
+
+    <div class="nav-bar">
+        <a href="#" class="nav-item active">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 033924.jpg" alt="Start">
+            <span>Start</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 030832.jpg" alt="Dokumenty">
+            <span>Dokumenty</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 031040.jpg" alt="Usługi">
+            <span>Usługi</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 033716.jpg" alt="Kod QR">
+            <span>Kod QR</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 033716.jpg" alt="Więcej">
+            <span>Więcej</span>
+        </a>
+    </div>
+
+    <style>
+        .services-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Rozstawia elementy na krańcach */
+    padding: 10px;
+    
+}
+
+.services-text {
+    font-size: 20px;
+    font-weight: 400;
+    color: #000000;
+    text-align: left;
+}
+
+.service-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #014993;
+    background-color: #daeaf9;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    text-transform: none;
+    position: relative;
+    top: 20px;  /* Dodaje margines od góry */
+}
+
+
+
+.service-button:hover {
+    background-color: #ffffff;
+}
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;  
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f5fa;
+        }
+
+        .services-text {
+            font-size: 20px;
+            font-weight: 100;
+            color: #000000;
+            padding-left: 17px;
+            padding-top: 40px;
+            text-align: left;
+        }
+
+        .services-icons {
+            display: grid;
+            grid-template-columns: repeat(3, 12fr); /* 3 kolumny */
+            gap: 60px 100px; /* Mniejsze odstępy */
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .service {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background-color: white;
+            border-radius: 15px;
+            padding: 10px;
+            width: 75px; /* Mniejsza szerokość */
+            height: 75px; /* Mniejsza wysokość */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .service img {
+            width: 55px; /* Zmniejszenie ikon */
+            height: 55px;
+            margin-bottom: 7px; /* Większa odległość od napisu */
+        }
+
+        .service p {
+            font-size: 14px; /* Nieco mniejsza czcionka */
+            color: #676767;
+            font-weight: lighter;
+            margin-top: 18px; /* Zapewnia, że napis jest POD ikoną */
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="services-icons">
+        <div class="service">
+            <img src="c:\Users\szefi\Downloads\Zrzut ekranu 2025-02-13 212151.jpg" alt="Punkty karne">
+            <p>Punkty karne</p>
+            
+            
+        </div>
+        <div class="service">
+            <img src="c:\Users\szefi\OneDrive\Pulpit\mDowod\Zrzut ekranu 2025-01-29 170056.jpg" alt="Naruszenie środowiskowe">
+            <p>Naruszenie środowiskowe</p>
+        </div>
+        <div class="service">
+            <img src="c:\Users\szefi\OneDrive\Pulpit\mDowod\Zrzut ekranu 2025-01-29 170143.jpg" alt="Bezpieczny autobus">
+            <p>Bezpieczny autobus</p>
+        </div>
+        <div class="service">
+            <img src="c:\Users\szefi\OneDrive\Pulpit\mDowod\Zrzut ekranu 2025-01-29 170220.jpg" alt="Polak za granicą">
+            <p>Polak za granicą</p>
+        </div>
+        <div class="service">
+            <img src="c:\Users\szefi\OneDrive\Pulpit\mDowod\Zrzut ekranu 2025-01-29 170246.jpg" alt="Bilkom">
+            <p>Bilkom</p>
+            
+
+
+        </div>
+        <div class="service">
+            <img src="c:\Users\szefi\OneDrive\Pulpit\mDowod\Zrzut ekranu 2025-01-29 170319.jpg" alt="Zastrzeż PESEL">
+            <p>Zastrzeż PESEL</p>
+        </div>
+    </div>
+
+</body>
+</html>

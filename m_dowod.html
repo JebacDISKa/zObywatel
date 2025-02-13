@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mDowód</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      position: relative;
+      min-height: 110vh; /* Strona dłuższa */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 15px;
+      overflow-x: auto; /* Umożliwia przewijanie w poziomie */
+      overflow-y: scroll; /* Umożliwia przewijanie w pionie */
+    }
+
+    /* Ukrywanie paska przewijania w poziomie */
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Top bar */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #ffffff; /* Kolor tła top bar */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      height: 60px;
+      z-index: 1000; /* Upewniamy się, że top bar będzie zawsze na wierzchu */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0,); /* Dodajemy subtelną ramkę pod top bar */
+    }
+
+    .header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000000;
+      margin-right: 10px; /* Odstęp między napisem a strzałką */
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-button svg {
+      width: 24px;
+      height: 24px;
+      stroke: #222a32;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    .sections {
+      width: 95%;
+      max-width: 95%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px; /* Większy odstęp między przyciskami */
+      padding-top: 15px; /* Zwiększamy przestrzeń na górze, aby przyciski były przesunięte w dół */
+      padding-bottom: 40px; /* Dodajemy trochę przestrzeni na dole */
+    }
+
+    .section {
+      width: 100%;
+      height: 80px; /* Zmniejszona wysokość przycisków */
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .image-container {
+      margin-top: 20px;
+      margin-bottom: 2px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 95%;
+      position: relative;
+      height: 456px;  /* Zmieniona wysokość o 100px */
+      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.20);
+      overflow: hidden;  /* Ukrywa elementy wychodzące poza kontener */
+    }
+    .image-container .main-info {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      background: transparent;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      color: #000;
+      line-height: 1.4;
+    }
+
+    .main-info p {
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+
+    .main-info p:nth-child(even) {
+      font-weight: normal;
+      font-size: 4px; /* Mniejsza czcionka dla wartości */
+      margin-bottom: 10px; /* Większy odstęp po wartościach */
+    }
+        
+    .main-info p:nth-child(2), 
+    .main-info p:nth-child(4), 
+    .main-info p:nth-child(6), 
+    .main-info p:nth-child(8), 
+    .main-info p:nth-child(10) {
+      font-weight: normal;
+      font-size: 12px;
+      color: rgb(87, 87, 87);
+    }
+
+
+    .image-container::after {
+      content: ''; /* Tworzymy pusty pseudo-element */
+      position: absolute;
+      bottom: 0; /* Umieszczamy pasek na dole */
+      left: 0;
+      width: 100%; /* Dopasowujemy szerokość do obrazka */
+      height: 74px; /* Wysokość paska */
+      background-color: white; /* Biały pasek */
+      border-bottom-left-radius: 10px; /* Zaokrąglony lewy róg */
+      border-bottom-right-radius: 10px; /* Zaokrąglony prawy róg */
+    }
+    .validity-bar {
+      position: absolute;
+      bottom: 460px;
+      left: 20px;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0px 10px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background: transparent; /* Usunięcie tła */
+    }
+
+    .validity-bar img {
+      width: 30px; /* Rozmiar obrazka */
+      height: 30px;
+      margin-right: 10px;
+      filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2)); /* Lekki cień dla widoczności */
+    }
+
+    .validity-text {
+      font-size: 14px;
+      font-weight: bold;
+      color: green;
+     
+    }
+
+
+
+    .image-container .top-left-image {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 150px; /* Szerokość na podstawie procenta ekranu */
+      height: 200px;
+      max-height: 200px; /* Maksymalna wysokość, aby nie było za duże */
+      border-radius: 5%;
+      overflow: hidden;
+    }
+
+    .image-container .top-left-image img {
+      width: 100%; /* Dopasowanie szerokości zdjęcia do kontenera */
+      height: 100%; /* Dopasowanie wysokości zdjęcia do kontenera */
+      object-fit: cover; /* Dopasowanie zdjęcia, aby wypełniało kontener */
+    }
+
+    /* Styl dla GIF-a */
+    .image-container .top-left-gif {
+      position: absolute;
+      top: 233px;
+      left: 15px;
+      width: 75px; /* Zmieniliśmy na procentową szerokość */
+      height: auto;
+      max-height: 50px; /* Ustalamy maksymalną wysokość */
+      overflow: hidden;
+    }
+
+    .image-container .top-left-gif img {
+      width: 100%; /* Dopasowanie szerokości GIF-a do kontenera */
+      height: 100%; /* Dopasowanie wysokości GIF-a do kontenera */
+      object-fit: cover; /* Dopasowanie GIF-a, aby wypełniał kontener */
+    }
+
+    .image-container .top-left-gif-second {
+      position: absolute;
+      top: 310px;  /* Przesunięcie o 20px w dół */
+      left: 19px;
+      width: 40px;  /* Zachowujemy tę samą szerokość */
+      height: 100px;
+      max-height: 50px;  /* Ustalamy maksymalną wysokość */
+      overflow: hidden;
+    }
+
+    .image-container .top-left-gif-second img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;  /* Dopasowanie GIF-a do kontenera */
+    }
+
+    .image-container img {
+      width: 100%;
+      height: auto; /* Obrazek rozciąga się na pełną wysokość kontenera */
+      border-radius: 10px;
+    }
+
+    .time {
+      font-size: 12px;
+      color: #222a32;
+      margin-top: 50px; /* 20px odstępu od góry, żeby data była wyżej nad obrazkiem */
+      text-align: center; /* Wycentrowanie tekstu */
+    }
+
+    /* Nowy blok napisów na głównym obrazie */
+    .image-container .main-info {
+      position: absolute;
+      top: 20px;        /* Dostosuj w razie potrzeby */
+      right: 100px;      /* 30px od prawej krawędzi kontenera */
+      background: transparent; /* Lekko przezroczyste tło dla lepszej czytelności */
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 15px;
+      color: #000;
+      line-height: 1.4;
+    }
+    
+  </style>
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('pl-PL', { hour12: false });
+      const dateString = now.toLocaleDateString('pl-PL');
+      document.getElementById('time').textContent = Czas: ${timeString} ${dateString};
+    }
+    setInterval(updateTime, 1000);
+  </script>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="index.html" class="back-button">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+      </svg>
+    </a>
+    <div class="header">mDowód</div>
+  </div>
+
+  <div class="time" id="time">Czas: --:--:-- --.--.----</div>
+
+  <div class="image-container">
+    <div class="top-left-image">
+      <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/472788565_571540689115507_5686043970701973882_n.png?_nc_cat=105&ccb=1-7&_nc_sid=0024fc&_nc_ohc=D4-6qehDAR8Q7kNvgGGXLZ8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1gFwt-qlzlLeUdoWWBLcq_JIiV0s1hPJDGKXkqhfbkgeug&oe=67AB4E38" alt="Opis zdjęcia" />
+    </div>
+    <!-- GIF dodany poniżej zdjęcia -->
+    <div class="top-left-gif">
+      <img src="https://powderblue-cat-511351.hostingersite.com/dowod_files/flaga.gif" alt="Opis GIF-a" />
+    </div>
+    <div class="top-left-gif-second">
+      <img src="https://powderblue-cat-511351.hostingersite.com/dowod_files/godlo.gif" alt="Opis drugiego GIF-a" />
+    </div>
+    <img src="c:\Users\szefi\Downloads\pobrane.png" alt="Opis obrazka" />
+
+    <!-- Tutaj wstawiamy blok napisów na głównym obrazie -->
+    <div class="main-info">
+      <p>MARIO</p>
+      <p>Imię </p>
+      <p>ALIKANTE</p>
+      <p>Nazwisko</p>
+      <p>ROSYJSKIE</p>
+      <p>Obywatelstwo</p>
+      <p>02.01.2007</p>
+      <p>Data urodzenia</p>
+      <p>69696969696</p>
+      <p>Numer PESEL</p>
+    </div>
+  </div>
+
+  <div class="validity-bar">
+    <img src="c:\Users\szefi\Downloads\erasebg-transformed.png" />
+    <span class="validity-text">Dokument Ważny</span>
+  </div>
+  
+
+  <div class="sections">
+    <div class="section">Potwierdź swoje dane <span>&#9654;</span></div>
+    <div class="section">Dane dokumentu <span>&#9654;</span></div>
+    <div class="section">Twoje dodatkowe dane <span>&#9654;</span></div>
+    <div class="section">Ostatnia aktualizacja <span>&#9654;</span></div>
+  </div>
+</body>
+</html>
